@@ -16,9 +16,10 @@ __pycache__/
 # Node cache (if frontend tooling is added later)
 node_modules/
 
+
 # Build/package artifacts
 *.zip
-!local_h5pversioning.zip
+!h5pversioning_local_plugin_posix_nobom_v021_strict.zip
 *.tar
 *.tar.gz
 
