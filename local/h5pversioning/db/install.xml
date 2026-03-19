@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="local/h5pversioning/db" VERSION="2026031600" COMMENT="XMLDB file for local_h5pversioning"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
+    <TABLES>
+        <TABLE NAME="local_h5pversioning_evtlog" COMMENT="Captured H5P/Content Bank events and versioning decisions">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+                <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
+                <FIELD NAME="source" TYPE="char" LENGTH="20" NOTNULL="true" DEFAULT=""/>
+                <FIELD NAME="eventclass" TYPE="char" LENGTH="255" NOTNULL="true" DEFAULT=""/>
+                <FIELD NAME="eventtime" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
+                <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
+                <FIELD NAME="username" TYPE="char" LENGTH="100" NOTNULL="true" DEFAULT=""/>
+                <FIELD NAME="objectid" TYPE="char" LENGTH="100" NOTNULL="true" DEFAULT=""/>
+                <FIELD NAME="contextid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
+                <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
+                <FIELD NAME="component" TYPE="char" LENGTH="100" NOTNULL="true" DEFAULT=""/>
+                <FIELD NAME="action" TYPE="char" LENGTH="50" NOTNULL="true" DEFAULT=""/>
+                <FIELD NAME="target" TYPE="char" LENGTH="50" NOTNULL="true" DEFAULT=""/>
+                <FIELD NAME="crud" TYPE="char" LENGTH="1" NOTNULL="true" DEFAULT=""/>
+                <FIELD NAME="edulevel" TYPE="int" LENGTH="2" NOTNULL="true" DEFAULT="0"/>
+                <FIELD NAME="otherdata" TYPE="text" NOTNULL="false"/>
+                <FIELD NAME="fullpayload" TYPE="text" NOTNULL="false"/>
+                <FIELD NAME="decision" TYPE="char" LENGTH="40" NOTNULL="true" DEFAULT=""/>
+                <FIELD NAME="contentid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
+                <FIELD NAME="contenthash" TYPE="char" LENGTH="40" NOTNULL="true" DEFAULT=""/>
+                <FIELD NAME="versionid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
+                <FIELD NAME="monitorcourseid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+            </KEYS>
+            <INDEXES>
+                <INDEX NAME="timecreated_idx" UNIQUE="false" FIELDS="timecreated"/>
+                <INDEX NAME="eventclass_idx" UNIQUE="false" FIELDS="eventclass"/>
+                <INDEX NAME="userid_idx" UNIQUE="false" FIELDS="userid"/>
+                <INDEX NAME="contentid_idx" UNIQUE="false" FIELDS="contentid"/>
+                <INDEX NAME="versionid_idx" UNIQUE="false" FIELDS="versionid"/>
+                <INDEX NAME="monitorcourseid_idx" UNIQUE="false" FIELDS="monitorcourseid"/>
+            </INDEXES>
+        </TABLE>
+        <TABLE NAME="local_h5pversioning_version" COMMENT="Version manifest for monitored H5P content">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+                <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
+                <FIELD NAME="monitorcourseid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
+                <FIELD NAME="contentid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
+                <FIELD NAME="contentname" TYPE="char" LENGTH="255" NOTNULL="true" DEFAULT=""/>
+                <FIELD NAME="contextid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
+                <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
+                <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
+                <FIELD NAME="username" TYPE="char" LENGTH="100" NOTNULL="true" DEFAULT=""/>
+                <FIELD NAME="eventclass" TYPE="char" LENGTH="255" NOTNULL="true" DEFAULT=""/>
+                <FIELD NAME="versionno" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
+                <FIELD NAME="contenthash" TYPE="char" LENGTH="40" NOTNULL="true" DEFAULT=""/>
+                <FIELD NAME="sourcefileid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
+                <FIELD NAME="snapshotfileid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
+                <FIELD NAME="snapshotfilename" TYPE="char" LENGTH="255" NOTNULL="true" DEFAULT=""/>
+                <FIELD NAME="filesize" TYPE="int" LENGTH="20" NOTNULL="true" DEFAULT="0"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+            </KEYS>
+            <INDEXES>
+                <INDEX NAME="contentid_idx" UNIQUE="false" FIELDS="contentid"/>
+                <INDEX NAME="monitorcourseid_idx" UNIQUE="false" FIELDS="monitorcourseid"/>
+                <INDEX NAME="contenthash_idx" UNIQUE="false" FIELDS="contenthash"/>
+                <INDEX NAME="content_version_uix" UNIQUE="true" FIELDS="contentid, versionno"/>
+            </INDEXES>
+        </TABLE>
+    </TABLES>
+</XMLDB>
