@@ -1,0 +1,27 @@
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editor/IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Python cache (if helper scripts are used)
+__pycache__/
+*.pyc
+
+# Node cache (if frontend tooling is added later)
+node_modules/
+
+# Build/package artifacts
+*.zip
+!local_h5pversioning.zip
+*.tar
+*.tar.gz
+
+# Local scratch/test extraction folders
+_zip_extract_test/
+LegacyPluginVer/
