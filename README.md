@@ -49,6 +49,65 @@ This is intentional. The plugin is designed for "central dev bank" governance.
 - File serving callback: `lib.php` (`local_h5pversioning_pluginfile`)
 - DB schema: `db/install.xml`, upgrades in `db/upgrade.php`
 
+flowchart TB
+    %% ---------- LAYERS ----------
+    subgraph L1["Layer 1: User + Moodle Core"]
+        A["Content Bank UI<br/>Create / Upload / Update H5P"]
+        B["Core Events API<br/>contentbank_content_created / uploaded / updated"]
+        A --> B
+    end
+
+    subgraph L2["Layer 2: Plugin Processing"]
+        C["Observer<br/>local_h5pversioning/classes/observer.php"]
+        D["Versioning Service<br/>local_h5pversioning/classes/versioning_service.php"]
+        E{"Scope check<br/>Monitored course/context?"}
+        G{"H5P check<br/>contenttype_h5p?"}
+        H["Resolve Content Bank item<br/>Read current file hash"]
+        I{"Hash changed<br/>vs latest version?"}
+        F["Ignore event"]
+        J["Decision: duplicate_skipped"]
+        K["Create snapshot file<br/>Moodle File API<br/>component=local_h5pversioning<br/>filearea=snapshot"]
+        M["Decision: snapshot_created"]
+
+        B --> C --> D --> E
+        E -- "No" --> F
+        E -- "Yes" --> G
+        G -- "No" --> F
+        G -- "Yes" --> H --> I
+        I -- "No" --> J
+        I -- "Yes" --> K --> M
+    end
+
+    subgraph L3["Layer 3: Persistence + Reports"]
+        N["Event Log Table<br/>local_h5pversioning_evtlog"]
+        L["Version Manifest Table<br/>local_h5pversioning_version"]
+        P["Event Report UI<br/>log.php"]
+        O["Version Report UI<br/>versions.php"]
+
+        J --> N
+        M --> N
+        K --> L
+        N --> P
+        L --> O
+    end
+
+    %% ---------- STYLES ----------
+    classDef ui fill:#e8f1ff,stroke:#2b6cb0,stroke-width:1.5px,color:#102a43;
+    classDef core fill:#edfdf6,stroke:#2f855a,stroke-width:1.5px,color:#1c4532;
+    classDef logic fill:#fffbea,stroke:#b7791f,stroke-width:1.5px,color:#744210;
+    classDef decision fill:#f0fff4,stroke:#2f855a,stroke-width:2px,color:#1c4532;
+    classDef ignore fill:#fff5f5,stroke:#c53030,stroke-width:1.5px,color:#742a2a;
+    classDef storage fill:#f7fafc,stroke:#4a5568,stroke-width:1.5px,color:#1a202c;
+    classDef report fill:#faf5ff,stroke:#6b46c1,stroke-width:1.5px,color:#44337a;
+
+    class A ui;
+    class B core;
+    class C,D,H,K,J,M logic;
+    class E,G,I decision;
+    class F ignore;
+    class N,L storage;
+    class O,P report;
+
 ## Installation
 
 Plugin type: `local`  
