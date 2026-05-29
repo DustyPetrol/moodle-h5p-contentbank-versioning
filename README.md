@@ -51,23 +51,22 @@ This is intentional. The plugin is designed for "central dev bank" governance.
 
 ```mermaid
 flowchart TB
-    %% ---------- LAYERS ----------
     subgraph L1["Layer 1: User + Moodle Core"]
-        A["Content Bank UI<br/>Create / Upload / Update H5P"]
-        B["Core Events API<br/>contentbank_content_created / uploaded / updated"]
+        A["Content Bank UI\nCreate / Upload / Update H5P"]
+        B["Core Events API\ncontentbank_content_created / uploaded / updated"]
         A --> B
     end
 
     subgraph L2["Layer 2: Plugin Processing"]
-        C["Observer<br/>local_h5pversioning/classes/observer.php"]
-        D["Versioning Service<br/>local_h5pversioning/classes/versioning_service.php"]
-        E{"Scope check<br/>Monitored course/context?"}
-        G{"H5P check<br/>contenttype_h5p?"}
-        H["Resolve Content Bank item<br/>Read current file hash"]
-        I{"Hash changed<br/>vs latest version?"}
+        C["Observer\nlocal_h5pversioning/classes/observer.php"]
+        D["Versioning Service\nlocal_h5pversioning/classes/versioning_service.php"]
+        E{"Scope check\nMonitored course/context?"}
+        G{"H5P check\ncontenttype_h5p?"}
+        H["Resolve Content Bank item\nRead current file hash"]
+        I{"Hash changed\nvs latest version?"}
         F["Ignore event"]
         J["Decision: duplicate_skipped"]
-        K["Create snapshot file<br/>Moodle File API<br/>component=local_h5pversioning<br/>filearea=snapshot"]
+        K["Create snapshot file\nMoodle File API\ncomponent=local_h5pversioning\nfilearea=snapshot"]
         M["Decision: snapshot_created"]
 
         B --> C --> D --> E
@@ -80,10 +79,10 @@ flowchart TB
     end
 
     subgraph L3["Layer 3: Persistence + Reports"]
-        N["Event Log Table<br/>local_h5pversioning_evtlog"]
-        L["Version Manifest Table<br/>local_h5pversioning_version"]
-        P["Event Report UI<br/>log.php"]
-        O["Version Report UI<br/>versions.php"]
+        N["Event Log Table\nlocal_h5pversioning_evtlog"]
+        L["Version Manifest Table\nlocal_h5pversioning_version"]
+        P["Event Report UI\nlog.php"]
+        O["Version Report UI\nversions.php"]
 
         J --> N
         M --> N
@@ -92,7 +91,6 @@ flowchart TB
         L --> O
     end
 
-    %% ---------- STYLES ----------
     classDef ui fill:#e8f1ff,stroke:#2b6cb0,stroke-width:1.5px,color:#102a43;
     classDef core fill:#edfdf6,stroke:#2f855a,stroke-width:1.5px,color:#1c4532;
     classDef logic fill:#fffbea,stroke:#b7791f,stroke-width:1.5px,color:#744210;
@@ -108,7 +106,7 @@ flowchart TB
     class F ignore;
     class N,L storage;
     class O,P report;
-    ```
+```
 
 ## Installation
 
