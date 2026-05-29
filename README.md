@@ -10,8 +10,6 @@ The main idea is simple:
 
 ## What Problem This Solves
 
-Many Moodle teams want a central H5P development workflow, but do not want every course-level remix to pollute version history.
-
 This plugin gives you:
 - A clean version timeline for one chosen development bank.
 - Snapshot files stored in Moodle-managed storage.
