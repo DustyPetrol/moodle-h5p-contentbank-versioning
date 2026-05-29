@@ -108,6 +108,7 @@ flowchart TB
     class F ignore;
     class N,L storage;
     class O,P report;
+    ```
 
 ## Installation
 
