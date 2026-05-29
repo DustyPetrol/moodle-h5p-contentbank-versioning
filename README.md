@@ -49,6 +49,7 @@ This is intentional. The plugin is designed for "central dev bank" governance.
 - File serving callback: `lib.php` (`local_h5pversioning_pluginfile`)
 - DB schema: `db/install.xml`, upgrades in `db/upgrade.php`
 
+```mermaid
 flowchart TB
     %% ---------- LAYERS ----------
     subgraph L1["Layer 1: User + Moodle Core"]
